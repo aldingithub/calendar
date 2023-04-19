@@ -1,6 +1,6 @@
 <div class="row justify-content-center mb-3" [formGroup]="date">
 
-    <!-- selector field for month -->
+    <!-- selector field for months -->
     <div class="col-lg-2 col-md-2">
         <div class="input-group">
             <select class="form-control form-control-sm"
@@ -18,9 +18,13 @@
     <div class="col-lg-2 col-md-2">
         <div class="input-group">
             <input type="number"
-                class="form-control form-control-sm
-                text-center"
+                class="form-control form-control-sm text-center"
+                [ngClass]="{'is-invalid': !yearCtrl.valid && yearCtrl.dirty}"
                 formControlName="year">
+        </div>
+        <div *ngIf="yearCtrl.invalid &&
+            (yearCtrl.dirty || yearCtrl.touched)">
+            <small class="text-danger m-0">Leto je obvezno</small>
         </div>
     </div>
 </div>
@@ -43,4 +47,9 @@
             {{day ? day : '&nbsp;'}}
         </span>
     </div>
+</div>
+
+<!-- input field for date -->
+<div class="row justify-content-center">
+
 </div>
