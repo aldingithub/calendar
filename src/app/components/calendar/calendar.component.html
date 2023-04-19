@@ -1,0 +1,36 @@
+<div class="row justify-content-center mb-3" [formGroup]="date">
+    <div class="col-2">
+        <div class="input-group">
+            <select class="form-control form-control-sm"
+                formControlName="month">
+                <option *ngFor="let month of monthsOfYear; let i=index"
+                    value="{{i}}" class="text-center">
+                    {{month}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-2">
+        <div class="input-group">
+            <input type="number" class="form-control form-control-sm
+                text-center"
+                formControlName="year">
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-1" *ngFor="let day of daysOfWeek">
+        <span>{{day}}</span>
+    </div>
+</div>
+
+<div class="row justify-content-center" *ngFor="let week of daysOfMonth">
+    <div class="col-1 border border-1" *ngFor="let day of week"
+        [ngClass]="{'text-danger':isSunday(day)}">
+        <span>
+            {{day ? day : '&nbsp;'}}
+        </span>
+    </div>
+</div>
