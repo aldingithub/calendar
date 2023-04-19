@@ -1,4 +1,5 @@
-<div class="row justify-content-center mb-3" [formGroup]="date">
+<div class="row justify-content-center mb-3"
+    [formGroup]="monthAndYearForm">
 
     <!-- selector field for months -->
     <div class="col-lg-2 col-md-2">
@@ -18,13 +19,17 @@
     <div class="col-lg-2 col-md-2">
         <div class="input-group">
             <input type="number"
+                max="9999"
                 class="form-control form-control-sm text-center"
                 [ngClass]="{'is-invalid': !yearCtrl.valid && yearCtrl.dirty}"
                 formControlName="year">
         </div>
         <div *ngIf="yearCtrl.invalid &&
             (yearCtrl.dirty || yearCtrl.touched)">
-            <small class="text-danger m-0">Leto je obvezno</small>
+            <small class="text-danger m-0"
+                *ngIf="yearCtrl.hasError('required')">Leto je obvezno</small>
+            <small class="text-danger m-0"
+                *ngIf="yearCtrl.hasError('max')">Leto je preveliko</small>
         </div>
     </div>
 </div>
@@ -39,7 +44,7 @@
 
 <!-- display days of month -->
 <div class="row justify-content-center"
-    *ngFor="let week of daysOfMonth">
+    *ngFor="let week of daysOfMonthInYear">
     <div class="col-1 border border-1 bg-light"
         *ngFor="let day of week"
         [ngClass]="{'text-danger':isSunday(day)}">
@@ -50,6 +55,25 @@
 </div>
 
 <!-- input field for date -->
-<div class="row justify-content-center">
-
+<div class="row justify-content-center mt-3">
+    <div class="col-lg-3">
+        <div class="input-group">
+            <input type="text"
+                class="form-control form-control-sm text-center"
+                [ngClass]="{'is-invalid': !customChoosenDateCtrl.valid
+                && customChoosenDateCtrl.dirty}"
+                placeholder="dd.mm.yyyy"
+                [formControl]="customChoosenDateCtrl">&nbsp;
+            <button class="btn btn-light btn-sm"
+                [disabled]="customChoosenDateCtrl.invalid"
+                (click)="adjustCalendarToChoosenDate()">Izberi</button>
+        </div>
+        <div *ngIf="customChoosenDateCtrl.invalid &&
+            (customChoosenDateCtrl.dirty || customChoosenDateCtrl.touched)">
+            <small class="text-danger m-0"
+                *ngIf="customChoosenDateCtrl.hasError('pattern')">
+                Format datuma ni pravilen
+            </small>
+        </div>
+    </div>
 </div>
