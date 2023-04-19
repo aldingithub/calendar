@@ -1,5 +1,5 @@
 <div class="row justify-content-center mb-3" [formGroup]="date">
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-md-2">
         <div class="input-group">
             <select class="form-control form-control-sm"
                 formControlName="month">
@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-md-2">
         <div class="input-group">
             <input type="number" class="form-control form-control-sm
                 text-center"
@@ -22,7 +22,7 @@
 
 <div class="row justify-content-center">
     <div class="col-1" *ngFor="let day of daysOfWeek">
-        <span>{{day}}</span>
+        <p class="text-truncate m-0">{{day}}</p>
     </div>
 </div>
 
