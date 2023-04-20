@@ -35,10 +35,10 @@ export class CalendarComponent implements OnInit {
   }
 
   adjustCalendarToChoosenDate(): void {
-    const [newMonth, newYear] = this.customChoosenDateCtrl.value.split('.');
+    const [_newDay, newMonth, newYear] = this.customChoosenDateCtrl.value.split('.').map(Number);
     this.monthAndYearForm.patchValue({
-      month: Number(newMonth) - 1,
-      year: Number(newYear)
+      month: newMonth - 1,
+      year: newYear
     })
   }
 
@@ -75,8 +75,8 @@ export class CalendarComponent implements OnInit {
     for (let i = 0; i < 6; i++) {
       const week: Day[] = [];
 
-      for (let j = 0; j < 7; j++) {
-        if (i === 0 && j < firstDayOfMonth) {
+      for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+        if (i === 0 && dayOfWeek < firstDayOfMonth) {
           week.push(null);
         } else if (dayOfMonth > lastDayOfMonth) {
           week.push(null);
