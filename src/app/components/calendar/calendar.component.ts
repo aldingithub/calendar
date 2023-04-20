@@ -1,7 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Day } from 'src/app/models/day';
+import { Holiday } from 'src/app/models/holiday';
 import { IDate } from 'src/app/models/idate';
+import { HolidaysService } from 'src/app/services/holidays.service';
 import { daysOfWeek, monthsOfYear } from 'src/app/utils';
 
 @Component({
@@ -11,14 +14,16 @@ import { daysOfWeek, monthsOfYear } from 'src/app/utils';
 })
 export class CalendarComponent implements OnInit {
 
-  daysOfMonthInYear: number[][];
+  daysOfMonthInYear: Day[][];
   monthAndYearForm: FormGroup<IDate>;
   customChoosenDateCtrl: FormControl<string>;
 
   daysOfWeek: typeof daysOfWeek = daysOfWeek;
   monthsOfYear: typeof monthsOfYear = monthsOfYear;
 
-  constructor(private readonly datePipe: DatePipe) { }
+  constructor(
+    private readonly datePipe: DatePipe,
+    private readonly holidaysService: HolidaysService) { }
 
   get monthCtrl() { return this.monthAndYearForm.controls.month }
   get yearCtrl() { return this.monthAndYearForm.controls.year }
@@ -28,10 +33,6 @@ export class CalendarComponent implements OnInit {
     this.registerFormListener();
     this.generateMonthDays();
     this.prepareCutomDate();
-  }
-
-  isSunday(day: number): boolean {
-    return new Date(this.yearCtrl.value, this.monthCtrl.value, day).getDay() === 0;
   }
 
   adjustCalendarToChoosenDate(): void {
@@ -66,25 +67,35 @@ export class CalendarComponent implements OnInit {
   private generateMonthDays(): void {
     const lastDayOfMonth = new Date(this.yearCtrl.value, +this.monthCtrl.value + 1, 0).getDate();
     const firstDayOfMonth = (new Date(this.yearCtrl.value, this.monthCtrl.value, 1).getDay() + 6) % 7;
+    const holidaysForMonthAndYear = this.holidaysService
+      .getHolidaysForMonthAndYear(+this.monthCtrl.value + 1, +this.yearCtrl.value);
 
     this.daysOfMonthInYear = [];
-    let day = 1;
+    let dayOfMonth = 1;
 
     for (let i = 0; i < 6; i++) {
-      const week = [];
+      const week: Day[] = [];
 
       for (let j = 0; j < 7; j++) {
         if (i === 0 && j < firstDayOfMonth) {
           week.push(null);
-        } else if (day > lastDayOfMonth) {
+        } else if (dayOfMonth > lastDayOfMonth) {
           week.push(null);
         } else {
-          week.push(day);
-          day++;
+          week.push(
+            new Day(
+              dayOfMonth,
+              this.isSunday(dayOfMonth),
+              holidaysForMonthAndYear.includes(dayOfMonth)));
+          dayOfMonth++;
         }
       }
 
       this.daysOfMonthInYear.push(week);
     }
+  }
+
+  private isSunday(day: number): boolean {
+    return new Date(this.yearCtrl.value, this.monthCtrl.value, day).getDay() === 0;
   }
 }

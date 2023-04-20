@@ -47,13 +47,13 @@
     *ngFor="let week of daysOfMonthInYear">
     <div class="col-1 border border-1 bg-light"
         *ngFor="let day of week"
-        [ngClass]="{'text-danger':isSunday(day)}">
+        [ngClass]="{'text-danger':day?.isSunday}">
         <span>
-            {{day ? day : '&nbsp;'}}
+            {{day?.day ?? '&nbsp;'}}
         </span>
         <i class="fa fa-2xs fa-gift float-start"
             title="Praznik"
-            *ngIf="day"></i>
+            *ngIf="day && day?.isHoliday"></i>
     </div>
 </div>
 
