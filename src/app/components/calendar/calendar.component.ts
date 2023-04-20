@@ -57,6 +57,7 @@ export class CalendarComponent implements OnInit {
   }
 
   private registerFormListener(): void {
+    // regenarate days of month for every change of monthAndYear if form is valid
     this.monthAndYearForm.valueChanges
       .subscribe(_res => {
         if (!this.monthAndYearForm.invalid) this.generateMonthDays();
@@ -84,8 +85,8 @@ export class CalendarComponent implements OnInit {
           week.push(
             new Day(
               dayOfMonth,
-              this.isSunday(dayOfMonth),
-              holidaysForMonthAndYear.includes(dayOfMonth)));
+              this.isSunday(dayOfMonth), // checks if date is on sunday
+              holidaysForMonthAndYear.includes(dayOfMonth))); // checks if date is holiday
           dayOfMonth++;
         }
       }
