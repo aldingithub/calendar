@@ -35,10 +35,10 @@ export class CalendarComponent implements OnInit {
   }
 
   adjustCalendarToChoosenDate(): void {
-    const dateAsArray = this.customChoosenDateCtrl.value.split('.');
+    const [newMonth, newYear] = this.customChoosenDateCtrl.value.split('.');
     this.monthAndYearForm.patchValue({
-      month: +dateAsArray[1] - 1,
-      year: +dateAsArray[2]
+      month: Number(newMonth) - 1,
+      year: Number(newYear)
     })
   }
 
