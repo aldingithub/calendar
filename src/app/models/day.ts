@@ -1,10 +1,10 @@
 export class Day {
-    day: number;
+    value: number;
     isSunday: boolean;
     isHoliday: boolean;
 
     constructor(day: number, isSunday: boolean, isHoliday: boolean) {
-        this.day = day;
+        this.value = day;
         this.isSunday = isSunday;
         this.isHoliday = isHoliday;
     }

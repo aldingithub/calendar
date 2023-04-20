@@ -2,10 +2,9 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Day } from 'src/app/models/day';
-import { Holiday } from 'src/app/models/holiday';
 import { IDate } from 'src/app/models/idate';
 import { HolidaysService } from 'src/app/services/holidays.service';
-import { daysOfWeek, monthsOfYear } from 'src/app/utils';
+import { dateFormat, dateRegex, daysOfWeek, monthsOfYear } from 'src/app/utils';
 
 @Component({
   selector: 'app-calendar',
@@ -32,7 +31,7 @@ export class CalendarComponent implements OnInit {
     this.buildForm();
     this.registerFormListener();
     this.generateMonthDays();
-    this.prepareCutomDate();
+    this.prepareCustomDate();
   }
 
   adjustCalendarToChoosenDate(): void {
@@ -43,10 +42,10 @@ export class CalendarComponent implements OnInit {
     })
   }
 
-  private prepareCutomDate(): void {
+  private prepareCustomDate(): void {
     this.customChoosenDateCtrl = new FormControl(
-      this.datePipe.transform(new Date(), 'dd.MM.yyyy'),
-      [Validators.required, Validators.pattern(/^\d{1,2}\.\d{1,2}\.\d{4}$/)]
+      this.datePipe.transform(new Date(), dateFormat),
+      [Validators.required, Validators.pattern(dateRegex)]
     )
   }
 

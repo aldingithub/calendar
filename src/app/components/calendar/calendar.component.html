@@ -49,7 +49,7 @@
         *ngFor="let day of week"
         [ngClass]="{'text-danger':day?.isSunday}">
         <span>
-            {{day?.day ?? '&nbsp;'}}
+            {{day?.value ?? '&nbsp;'}}
         </span>
         <i class="fa fa-2xs fa-gift float-start"
             title="Praznik"
