@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { Holiday } from '../models/holiday';
+import { pathToFileWithHolidays } from '../utils';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,6 @@ export class HolidaysService {
 
   constructor(private readonly http: HttpClient) { }
 
-  readFile(filePath: string) {
-    return this.http.get(filePath, { responseType: 'text' });
-  }
-
   getHolidaysForMonthAndYear(month: number, year: number): number[] {
     return this.holidays
       .filter(holiday => holiday.month === month &&
@@ -25,10 +22,15 @@ export class HolidaysService {
 
   async readHolidaysFromFile(): Promise<void> {
     try {
-      const dates = (await lastValueFrom(this.readFile('assets/holidays.txt')))
+      const dates = (await lastValueFrom(this.readFile()))
       this.holidays = dates.split(';').map(date => new Holiday(date));
     } catch (e) {
       // handle silently
     }
   }
+
+  private readFile(): Observable<string> {
+    return this.http.get(pathToFileWithHolidays, { responseType: 'text' });
+  }
+
 }
