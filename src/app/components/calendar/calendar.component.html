@@ -72,6 +72,7 @@
                 [disabled]="customChoosenDateCtrl.invalid"
                 (click)="adjustCalendarToChoosenDate()">Izberi</button>
         </div>
+
         <div *ngIf="customChoosenDateCtrl.invalid &&
             (customChoosenDateCtrl.dirty || customChoosenDateCtrl.touched)">
             <small class="text-danger m-0"
@@ -79,6 +80,7 @@
                 Format datuma ni pravilen
             </small>
         </div>
+
         <div *ngIf="customDateInvalid">
             <small class="text-danger m-0">
                 Datum ne obstaja
