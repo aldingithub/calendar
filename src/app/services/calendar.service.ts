@@ -25,7 +25,7 @@ export class CalendarService {
   }
 
   getFirstDayOfMonth(year: number, month: number): number {
-    return (new Date(year, month, 1).getDay() + 6) % 7
+    return (new Date(year, month, 1).getDay() + 6) % 7;
   }
 
   getLastDayOfMonth(year: number, month: number): number {
@@ -34,7 +34,7 @@ export class CalendarService {
 
   async readHolidaysFromFile(): Promise<void> {
     try {
-      const dates = (await lastValueFrom(this.readFile()))
+      const dates = (await lastValueFrom(this.readFile()));
       this.holidays = dates.split(';').map(date => new Holiday(date));
     } catch (e) {
       // handle silently

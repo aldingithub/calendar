@@ -25,8 +25,8 @@ export class CalendarComponent implements OnInit {
     private readonly datePipe: DatePipe,
     private readonly calendarService: CalendarService) { }
 
-  get monthCtrl() { return this.monthAndYearForm.controls.month }
-  get yearCtrl() { return this.monthAndYearForm.controls.year }
+  get monthCtrl() { return this.monthAndYearForm.controls.month; }
+  get yearCtrl() { return this.monthAndYearForm.controls.year; }
 
   ngOnInit(): void {
     this.buildForm();
@@ -44,7 +44,7 @@ export class CalendarComponent implements OnInit {
     this.monthAndYearForm.patchValue({
       month: newMonth - 1,
       year: newYear
-    })
+    });
   }
 
   private prepareCustomDate(): void {
@@ -52,7 +52,7 @@ export class CalendarComponent implements OnInit {
     this.customChoosenDateCtrl = new FormControl(
       this.datePipe.transform(new Date(), dateFormat),
       [Validators.required, Validators.pattern(dateRegex)]
-    )
+    );
   }
 
   private buildForm(): void {
@@ -71,7 +71,7 @@ export class CalendarComponent implements OnInit {
   }
 
   private generateMonthDays(): void {
-    const lastDayOfMonth = this.calendarService.getLastDayOfMonth(this.yearCtrl.value, +this.monthCtrl.value)
+    const lastDayOfMonth = this.calendarService.getLastDayOfMonth(this.yearCtrl.value, +this.monthCtrl.value);
     const firstDayOfMonth = this.calendarService.getFirstDayOfMonth(this.yearCtrl.value, +this.monthCtrl.value);
     const holidaysForMonthAndYear = this.calendarService
       .getHolidaysForMonthAndYear(+this.monthCtrl.value + 1, +this.yearCtrl.value);
