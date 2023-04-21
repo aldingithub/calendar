@@ -71,8 +71,8 @@ export class CalendarComponent implements OnInit {
   }
 
   private generateMonthDays(): void {
-    const lastDayOfMonth = this.calendarService.getLastDayOfMonth(this.yearCtrl.value, this.monthCtrl.value)
-    const firstDayOfMonth = this.calendarService.getFirstDayOfMonth(this.yearCtrl.value, this.monthCtrl.value);
+    const lastDayOfMonth = this.calendarService.getLastDayOfMonth(this.yearCtrl.value, +this.monthCtrl.value)
+    const firstDayOfMonth = this.calendarService.getFirstDayOfMonth(this.yearCtrl.value, +this.monthCtrl.value);
     const holidaysForMonthAndYear = this.calendarService
       .getHolidaysForMonthAndYear(+this.monthCtrl.value + 1, +this.yearCtrl.value);
 
