@@ -76,23 +76,25 @@ export class CalendarComponent implements OnInit {
       .getHolidaysForMonthAndYear(+this.monthCtrl.value + 1, +this.yearCtrl.value);
 
     this.daysOfMonthInYear = [];
-    let dayOfMonth = 1;
+    let dayOfCurrentMonth = 1;
+    let dayOfNextMonth = 1;
+    let dayOfPrevisiousMonth = this.getLastDayOfMonth(+this.monthCtrl.value - 1);
 
     for (let i = 0; i < 6; i++) {
       const week: Day[] = [];
 
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
         if (i === 0 && dayOfWeek < firstDayOfMonth) {
-          week.push(null);
-        } else if (dayOfMonth > lastDayOfMonth) {
-          week.push(null);
+          week[firstDayOfMonth - dayOfWeek - 1] = new Day(dayOfPrevisiousMonth--);
+        } else if (dayOfCurrentMonth > lastDayOfMonth) {
+          week.push(new Day(dayOfNextMonth++));
         } else {
           week.push(
             new Day(
-              dayOfMonth,
-              this.isSunday(dayOfMonth), // checks if date is on sunday
-              holidaysForMonthAndYear.includes(dayOfMonth))); // checks if date is holiday
-          dayOfMonth++;
+              dayOfCurrentMonth,
+              this.isSunday(dayOfCurrentMonth), // checks if date is on sunday
+              holidaysForMonthAndYear.includes(dayOfCurrentMonth++), // checks if date is holiday
+              true)); // checks if day is from currently viewed month
         }
       }
 
