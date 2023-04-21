@@ -14,10 +14,9 @@ export class CalendarService {
   constructor(private readonly http: HttpClient) { }
 
   getHolidaysForMonthAndYear(month: number, year: number): number[] {
-    return this.holidays
-      .filter(holiday => holiday.month === month &&
-        (holiday.isRepeating || holiday.year === year)
-      ).map(holiday => holiday.day);
+    return this.holidays.filter(holiday => holiday.month === month &&
+      (holiday.isRepeating || holiday.year === year)
+    ).map(holiday => holiday.day);
   }
 
   isSunday(year: number, month: number, day: number): boolean {
