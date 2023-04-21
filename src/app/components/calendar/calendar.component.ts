@@ -48,6 +48,7 @@ export class CalendarComponent implements OnInit {
   }
 
   private prepareCustomDate(): void {
+    // customChoosenDate by default set to today date
     this.customChoosenDateCtrl = new FormControl(
       this.datePipe.transform(new Date(), dateFormat),
       [Validators.required, Validators.pattern(dateRegex)]
