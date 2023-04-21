@@ -16,6 +16,7 @@ export class CalendarComponent implements OnInit {
   daysOfMonthInYear: Day[][];
   monthAndYearForm: FormGroup<IDate>;
   customChoosenDateCtrl: FormControl<string>;
+  customDateInvalid: boolean;
 
   daysOfWeek: typeof daysOfWeek = daysOfWeek;
   monthsOfYear: typeof monthsOfYear = monthsOfYear;
@@ -36,6 +37,12 @@ export class CalendarComponent implements OnInit {
 
   adjustCalendarToChoosenDate(): void {
     const [_newDay, newMonth, newYear] = this.customChoosenDateCtrl.value.split('.').map(Number);
+    if (newMonth < 1 || newMonth > 12) {
+      this.customDateInvalid = true;
+      return;
+    }
+
+    this.customDateInvalid = false;
     this.monthAndYearForm.patchValue({
       month: newMonth - 1,
       year: newYear

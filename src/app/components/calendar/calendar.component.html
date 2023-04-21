@@ -66,6 +66,7 @@
                 class="form-control form-control-sm text-center"
                 [ngClass]="{'is-invalid': !customChoosenDateCtrl.valid
                 && customChoosenDateCtrl.dirty}"
+                (change)="customDateInvalid=false"
                 placeholder="dd.mm.yyyy"
                 [formControl]="customChoosenDateCtrl">&nbsp;
             <button class="btn btn-light btn-sm"
@@ -77,6 +78,11 @@
             <small class="text-danger m-0"
                 *ngIf="customChoosenDateCtrl.hasError('pattern')">
                 Format datuma ni pravilen
+            </small>
+        </div>
+        <div *ngIf="customDateInvalid">
+            <small class="text-danger m-0">
+                Datum ne obstaja
             </small>
         </div>
     </div>
