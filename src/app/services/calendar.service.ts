@@ -13,7 +13,7 @@ export class CalendarService {
 
   constructor(private readonly http: HttpClient) { }
 
-  getHolidaysForMonthAndYear(month: number, year: number): number[] {
+  getHolidaysForMonthAndYear(year: number, month: number): number[] {
     return this.holidays.filter(holiday => holiday.month === month &&
       (holiday.isRepeating || holiday.year === year)
     ).map(holiday => holiday.day);
