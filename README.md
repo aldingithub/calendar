@@ -19,7 +19,7 @@
 ## Lokalna namestitev
 - za lokalno namestitev na svojem računlaniku potrebno je imeti: Node.js, npm in Angular CLI
 - poženemo ukaza:
-1. ```npm install```
+1. ```npm install --legacy-peer-deps```
 2. ```npm start```
 - aplikacija je potem dostopna na http://localhost:4200/
 
