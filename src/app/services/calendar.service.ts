@@ -13,11 +13,13 @@ export class CalendarService {
 
   constructor(private readonly http: HttpClient) { }
 
-  getHolidaysForMonthAndYear(month: number, year: number): number[] {
-    return this.holidays
+  getHolidaysForMonthAndYear(month: number, year: number): Map<number, string> {
+    const holidaysMapper = new Map<number, string>();
+    this.holidays
       .filter(holiday => holiday.month === month &&
         (holiday.isRepeating || holiday.year === year)
-      ).map(holiday => holiday.day);
+      ).forEach(holiday => holidaysMapper.set(holiday.day, holiday.holidayName));
+    return holidaysMapper;
   }
 
   isSunday(year: number, month: number, day: number): boolean {

@@ -94,7 +94,8 @@ export class CalendarComponent implements OnInit {
             new Day(
               dayOfCurrentMonth,
               this.calendarService.isSunday(this.yearCtrl.value, this.monthCtrl.value, dayOfCurrentMonth), // checks if date is on sunday
-              holidaysForMonthAndYear.includes(dayOfCurrentMonth++), // checks if date is holiday
+              !!holidaysForMonthAndYear.get(dayOfCurrentMonth), // checks if date is holiday
+              holidaysForMonthAndYear.get(dayOfCurrentMonth++), // set day description to holiday name if available
               true)); // checks if day is from currently viewed month
         }
       }

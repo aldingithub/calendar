@@ -47,6 +47,7 @@
     *ngFor="let week of daysOfMonthInYear">
     <div class="col-1 border border-1"
         *ngFor="let day of week"
+        title="{{day?.description}}"
         [ngClass]="{
         'text-danger':day?.isSunday,
         'bg-warning':day?.isHoliday,
