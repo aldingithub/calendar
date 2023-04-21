@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { HolidaysService } from './services/holidays.service';
+import { CalendarService } from './services/calendar.service';
 
 @NgModule({
   declarations: [
@@ -24,10 +24,10 @@ import { HolidaysService } from './services/holidays.service';
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [HolidaysService],
-      useFactory: (holidaysService: HolidaysService) => {
+      deps: [CalendarService],
+      useFactory: (calendarService: CalendarService) => {
         return () => {
-          return holidaysService.readHolidaysFromFile();
+          return calendarService.readHolidaysFromFile();
         };
       }
     }

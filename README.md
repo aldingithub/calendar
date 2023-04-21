@@ -2,7 +2,7 @@
 
 ## Opis
 - nedelje v koledarju so označene z rdečo barvo
-- prazniki so označeni z rumenim robom
+- prazniki so označeni z rumenom barvom ozadja
 - mesec lahko spreminjamo z padajočim menijem nad koledarom
 - leto lahko izberemo vnosom leta v polje nad koledarom (Opomba: leto ne sme biti večje kot 9999)
 - lahko vnesemo poljuben datum (format: dd.MM.yyyy) v polje pod koledarom in klikom na gumb "Izberi" nam se koledar posodobi

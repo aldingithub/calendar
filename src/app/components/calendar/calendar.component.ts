@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Day } from 'src/app/models/day';
 import { IDate } from 'src/app/models/idate';
-import { HolidaysService } from 'src/app/services/holidays.service';
+import { CalendarService } from 'src/app/services/calendar.service';
 import { dateFormat, dateRegex, daysOfWeek, monthsOfYear } from 'src/app/utils';
 
 @Component({
@@ -23,7 +23,7 @@ export class CalendarComponent implements OnInit {
 
   constructor(
     private readonly datePipe: DatePipe,
-    private readonly holidaysService: HolidaysService) { }
+    private readonly calendarService: CalendarService) { }
 
   get monthCtrl() { return this.monthAndYearForm.controls.month }
   get yearCtrl() { return this.monthAndYearForm.controls.year }
@@ -70,15 +70,15 @@ export class CalendarComponent implements OnInit {
   }
 
   private generateMonthDays(): void {
-    const lastDayOfMonth = this.getLastDayOfMonth(this.monthCtrl.value)
-    const firstDayOfMonth = this.getFirstDayOfMonth(this.monthCtrl.value);
-    const holidaysForMonthAndYear = this.holidaysService
+    const lastDayOfMonth = this.calendarService.getLastDayOfMonth(this.yearCtrl.value, this.monthCtrl.value)
+    const firstDayOfMonth = this.calendarService.getFirstDayOfMonth(this.yearCtrl.value, this.monthCtrl.value);
+    const holidaysForMonthAndYear = this.calendarService
       .getHolidaysForMonthAndYear(+this.monthCtrl.value + 1, +this.yearCtrl.value);
 
     this.daysOfMonthInYear = [];
     let dayOfCurrentMonth = 1;
     let dayOfNextMonth = 1;
-    let dayOfPrevisiousMonth = this.getLastDayOfMonth(+this.monthCtrl.value - 1);
+    let dayOfPrevisiousMonth = this.calendarService.getLastDayOfMonth(this.yearCtrl.value, +this.monthCtrl.value - 1);
 
     for (let i = 0; i < 6; i++) {
       const week: Day[] = [];
@@ -92,7 +92,7 @@ export class CalendarComponent implements OnInit {
           week.push(
             new Day(
               dayOfCurrentMonth,
-              this.isSunday(dayOfCurrentMonth), // checks if date is on sunday
+              this.calendarService.isSunday(this.yearCtrl.value, this.monthCtrl.value, dayOfCurrentMonth), // checks if date is on sunday
               holidaysForMonthAndYear.includes(dayOfCurrentMonth++), // checks if date is holiday
               true)); // checks if day is from currently viewed month
         }
@@ -100,17 +100,5 @@ export class CalendarComponent implements OnInit {
 
       this.daysOfMonthInYear.push(week);
     }
-  }
-
-  private isSunday(day: number): boolean {
-    return new Date(this.yearCtrl.value, this.monthCtrl.value, day).getDay() === 0;
-  }
-
-  private getFirstDayOfMonth(month: number): number {
-    return (new Date(this.yearCtrl.value, month, 1).getDay() + 6) % 7
-  }
-
-  private getLastDayOfMonth(month: number): number {
-    return new Date(this.yearCtrl.value, month + 1, 0).getDate();
   }
 }

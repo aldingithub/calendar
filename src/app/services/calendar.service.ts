@@ -7,7 +7,7 @@ import { pathToFileWithHolidays } from '../utils';
 @Injectable({
   providedIn: 'root'
 })
-export class HolidaysService {
+export class CalendarService {
 
   holidays: Holiday[] = [];
 
@@ -18,6 +18,18 @@ export class HolidaysService {
       .filter(holiday => holiday.month === month &&
         (holiday.isRepeating || holiday.year === year)
       ).map(holiday => holiday.day);
+  }
+
+  isSunday(year: number, month: number, day: number): boolean {
+    return new Date(year, month, day).getDay() === 0;
+  }
+
+  getFirstDayOfMonth(year: number, month: number): number {
+    return (new Date(year, month, 1).getDay() + 6) % 7
+  }
+
+  getLastDayOfMonth(year: number, month: number): number {
+    return new Date(year, month + 1, 0).getDate();
   }
 
   async readHolidaysFromFile(): Promise<void> {
