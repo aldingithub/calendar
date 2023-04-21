@@ -17,7 +17,7 @@
 ![alt text](./src/assets/calendar_small.png)
 
 ## Lokalna namestitev
-- za lokalno namestitev potrebno je imeti Node in Angular nameščen
+- za lokalno namestitev na svojem računlaniku potrebno je imeti: Node.js, npm in Angular CLI
 - poženemo ukaza:
 1. ```npm install```
 2. ```npm start```
