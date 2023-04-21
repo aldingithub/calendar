@@ -73,8 +73,7 @@ export class CalendarComponent implements OnInit {
   private generateMonthDays(): void {
     const lastDayOfMonth = this.calendarService.getLastDayOfMonth(this.yearCtrl.value, +this.monthCtrl.value);
     const firstDayOfMonth = this.calendarService.getFirstDayOfMonth(this.yearCtrl.value, +this.monthCtrl.value);
-    const holidaysForMonthAndYear = this.calendarService
-      .getHolidaysForMonthAndYear(+this.monthCtrl.value + 1, +this.yearCtrl.value);
+    const holidaysForMonthAndYear = this.calendarService.getHolidaysForMonthAndYear(+this.monthCtrl.value + 1, +this.yearCtrl.value);
 
     this.daysOfMonthInYear = [];
     let dayOfCurrentMonth = 1;
@@ -95,7 +94,7 @@ export class CalendarComponent implements OnInit {
               dayOfCurrentMonth,
               this.calendarService.isSunday(this.yearCtrl.value, this.monthCtrl.value, dayOfCurrentMonth), // checks if date is on sunday
               !!holidaysForMonthAndYear.get(dayOfCurrentMonth), // checks if date is holiday
-              holidaysForMonthAndYear.get(dayOfCurrentMonth++), // set day description to holiday name if available
+              holidaysForMonthAndYear.get(dayOfCurrentMonth++) || '', // set day description to holiday name if available
               true)); // checks if day is from currently viewed month
         }
       }
