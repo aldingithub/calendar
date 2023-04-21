@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Day } from 'src/app/models/day';
 import { IDate } from 'src/app/models/idate';
 import { CalendarService } from 'src/app/services/calendar.service';
-import { dateFormat, dateRegex, daysOfWeek, monthsOfYear } from 'src/app/utils';
+import { dateFormat, dateRegex, daysOfWeek, maxDaysInWeek, maxWeeksInMonth, monthsOfYear } from 'src/app/utils';
 
 @Component({
   selector: 'app-calendar',
@@ -80,11 +80,11 @@ export class CalendarComponent implements OnInit {
     let dayOfNextMonth = 1;
     let dayOfPrevisiousMonth = this.calendarService.getLastDayOfMonth(this.yearCtrl.value, +this.monthCtrl.value - 1);
 
-    for (let i = 0; i < 6; i++) {
+    for (let weekOfMonth = 0; weekOfMonth < maxWeeksInMonth; weekOfMonth++) {
       const week: Day[] = [];
 
-      for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-        if (i === 0 && dayOfWeek < firstDayOfMonth) { // days from previsious month
+      for (let dayOfWeek = 0; dayOfWeek < maxDaysInWeek; dayOfWeek++) {
+        if (weekOfMonth === 0 && dayOfWeek < firstDayOfMonth) { // days from previsious month
           week[firstDayOfMonth - dayOfWeek - 1] = new Day(dayOfPrevisiousMonth--);
         } else if (dayOfCurrentMonth > lastDayOfMonth) { // days from next month
           week.push(new Day(dayOfNextMonth++));

@@ -3,3 +3,5 @@ export const monthsOfYear = ['Januar', 'Februar', 'Marec', 'April', 'Maj', 'Juni
 export const dateFormat = 'dd.MM.yyyy';
 export const dateRegex = /^\d{1,2}\.\d{1,2}\.\d{4}$/;
 export const pathToFileWithHolidays = 'assets/holidays.txt';
+export const maxDaysInWeek = 7;
+export const maxWeeksInMonth = 6;

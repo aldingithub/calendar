@@ -9,7 +9,7 @@ import { pathToFileWithHolidays } from '../utils';
 })
 export class CalendarService {
 
-  holidays: Holiday[] = [];
+  private holidays: Holiday[] = [];
 
   constructor(private readonly http: HttpClient) { }
 
