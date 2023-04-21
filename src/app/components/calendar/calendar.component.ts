@@ -84,11 +84,11 @@ export class CalendarComponent implements OnInit {
       const week: Day[] = [];
 
       for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
-        if (i === 0 && dayOfWeek < firstDayOfMonth) {
+        if (i === 0 && dayOfWeek < firstDayOfMonth) { // days from previsious month
           week[firstDayOfMonth - dayOfWeek - 1] = new Day(dayOfPrevisiousMonth--);
-        } else if (dayOfCurrentMonth > lastDayOfMonth) {
+        } else if (dayOfCurrentMonth > lastDayOfMonth) { // days from next month
           week.push(new Day(dayOfNextMonth++));
-        } else {
+        } else { // days of current month
           week.push(
             new Day(
               dayOfCurrentMonth,
