@@ -21,7 +21,7 @@ import { CalendarService } from './services/calendar.service';
   ],
   providers: [
     DatePipe,
-    {
+    { // load holidays from file before app starts
       provide: APP_INITIALIZER,
       multi: true,
       deps: [CalendarService],
