@@ -65,8 +65,8 @@ export class CalendarComponent implements OnInit {
   }
 
   private generateMonthDays(): void {
-    const lastDayOfMonth = new Date(this.yearCtrl.value, +this.monthCtrl.value + 1, 0).getDate();
-    const firstDayOfMonth = (new Date(this.yearCtrl.value, this.monthCtrl.value, 1).getDay() + 6) % 7;
+    const lastDayOfMonth = this.getLastDayOfMonth(this.monthCtrl.value)
+    const firstDayOfMonth = this.getFirstDayOfMonth(this.monthCtrl.value);
     const holidaysForMonthAndYear = this.holidaysService
       .getHolidaysForMonthAndYear(+this.monthCtrl.value + 1, +this.yearCtrl.value);
 
@@ -97,5 +97,13 @@ export class CalendarComponent implements OnInit {
 
   private isSunday(day: number): boolean {
     return new Date(this.yearCtrl.value, this.monthCtrl.value, day).getDay() === 0;
+  }
+
+  private getFirstDayOfMonth(month: number): number {
+    return (new Date(this.yearCtrl.value, month, 1).getDay() + 6) % 7
+  }
+
+  private getLastDayOfMonth(month: number): number {
+    return new Date(this.yearCtrl.value, month + 1, 0).getDate();
   }
 }
