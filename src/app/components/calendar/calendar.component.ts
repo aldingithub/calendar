@@ -37,12 +37,10 @@ export class CalendarComponent implements OnInit {
 
   adjustCalendarToChoosenDate(): void {
     const [_newDay, newMonth, newYear] = this.customChoosenDateCtrl.value.split('.').map(Number);
-    if (newMonth < 1 || newMonth > 12) {
-      this.customDateInvalid = true;
-      return;
-    }
 
-    this.customDateInvalid = false;
+    this.customDateInvalid = (newMonth < 1 || newMonth > 12);
+    if (this.customDateInvalid) { return; }
+
     this.monthAndYearForm.patchValue({
       month: newMonth - 1,
       year: newYear
